@@ -1,0 +1,87 @@
+Steps to perform the given task:-
+
+1.I have created the Repository named Aganitha-Test on my github id(ROKAGR)
+2.Then we need to create one instace of linux on aws or gcp ,etc. on which we will do the task.
+3.I created a account on AWS and then created the Linux instance on AWS.
+4.After that I have openned the instance shell and wrote some of the commands :-
+
+i)In order to setup postrgres in a docker we need to have three pre-requisites i.e.
+1).Access to a command line/terminal window
+2).A user account with sudo privileges
+3).An existing Docker installation
+
+So the first one is in completed by us .
+
+So the second one is obtained by running the (sudo -s) command on the terminal of the instance after this we will get the sudo priviliges .
+
+After the second one the third one is to install the docker in the linux instance, so I have used some of the commands on the terminal to do so i.e.
+Steps:-
+1).Update the installed packages and package cache on your instance.
+
+sudo yum update -y(Commands)
+
+2.Install the most recent Docker Engine package.
+
+sudo yum install docker (Commands)
+
+3.To Start the docker service
+
+sudo service dock start
+
+4.Add the ec2-user to the docker group so we can execute Docker commands without using sudo. 
+
+sudo usermod -a -G docker ec2-user(Commands)
+
+5.Verify that the ec2-user can run Docker commands without sudo
+
+docker info(Commands)
+
+
+Now we have installed the docker in our  Linux instance.
+
+Now we will run the postgres using docker decompose
+
+We will first want to create a working directory named postgres and move into that directory
+ 
+mkdir postgres(Making the deirectory)
+
+cd postgres/(For changing the directory)
+
+Now, Next, I used Docker Compose to download the Postgres image and get the service up and running. Do this by creating a new docker-compose.yml file with an editor of your choice (in this example, we used nano):
+
+nano docker-compose.yml(Command)
+
+nano is a editor present in the linux based system
+
+After the above command the editor will open and we will write some content into the file i.e:-
+ 
+version: ‘3’
+service:
+  postgres:
+  image: ‘postgres: latest’
+  ports:
+    - “5432:5432” 
+
+Now ,the yaml configuration file outlines there is a postgres service, built on the latest postgres image.
+
+Finally, we need to define the ports on which the container communicates. 
+
+5432 is the default port number for PostgreSQL.
+
+After this  I saved and exit the file.
+
+Now that we have the yaml configuration file, we can start the postgres service and run the container. Use the docker-compose up command with the -d option to put it into detach mode (allowing you to continue to run commands from the current shell):
+
+docker-compose up -d(commands)
+
+We can check the logs with the command:
+docker-compose logs -f(commands)
+
+
+Now we will connect to the Postgres in Docker Container
+
+docker exec -it [container_name] psql -U [postgres_user]
+
+Now we will import a database:-
+
+
